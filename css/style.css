@@ -1,0 +1,40 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
+#simon {
+  display: flex;
+  flex-direction: column;
+}
+
+.top, .bottom {
+  display: flex;
+}
+
+.top .left, .top .right, .bottom .left, .bottom .right {
+  width: 0;
+	height: 0;
+  margin: 1vh;
+}
+.top .left {
+	border-bottom: 30vh solid blue;
+	border-left: 30vh solid transparent;
+  box-shadow: 1.5vh 1.5vh 1vh -1vh #ccc;
+}
+.top .right {
+	border-bottom: 30vh solid red;
+	border-right: 30vh solid transparent;
+  box-shadow: -1.5vh 1.5vh 1vh -1vh #ccc;
+}
+.bottom .left {
+  border-top: 30vh solid green;
+  border-left: 30vh solid transparent;
+  box-shadow: 1.5vh -1.5vh 1vh -1vh #ccc;
+}
+.bottom .right {
+  border-top: 30vh solid yellow;
+  border-right: 30vh solid transparent;
+  box-shadow: -1.5vh -1.5vh 1vh -1vh #ccc;
+}
