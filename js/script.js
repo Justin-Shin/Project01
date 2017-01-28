@@ -61,6 +61,7 @@ function runSequence(sequenceToUse) {
     return null; //ends function
   } else if (sequenceToUse[simon.sequenceCounter].toString().length==1) { //checks how many digits are in the index of the array of the sequence
       $('#'+simon.colorMap[sequenceToUse[simon.sequenceCounter]-1]).addClass('on');
+      beepBeep(simon.colorMap[sequenceToUse[simon.sequenceCounter]-1],!(sequenceToUse == simon.beginningSequence || sequenceToUse ==simon.lossSequence));
       simon.sequenceCounter++; //these are used instead of a for loop because setTimer will set a timer but the loops will keep running (so there will just be many multiple timers at the same time and then the waiting function will run all after another)
   } else if (1 < sequenceToUse[simon.sequenceCounter].toString().length) { //if the value in the index has a two digit number or more, it will run this to light multiple lights at once for effect
       sequenceArrayHolder = sequenceToUse[simon.sequenceCounter].toString().split('');
@@ -110,6 +111,7 @@ function playGame() {
   runSequence(simon.computerSequence);
 }
 function checkSequence() {
+  beepBeep($(this).attr('id'),true); //feeds the color name to the sound function to let it know which file to use
   if (simon.powerOn === false || simon.computerSequence.length==0) {
     return false; //game isn't on OR does not have an active sequence to compare to, do nothing
   } else {
@@ -149,6 +151,13 @@ function updateScore(){
     $('.score01').html(scoreArray[1]); //second digit placed in the ones field
   } else {
     $('.score01').text(simon.score); //one digit score just updates the ones field
+  }
+}
+function beepBeep(colorSound,playGame){
+  if (playGame == true) {
+    var beep = $('<audio autoplay></audio>');
+    beep.append('<source src="sounds/' + colorSound + '.mp3" type="audio/mp3" />');
+    $('[data-action=sound]').html(beep);
   }
 }
 function randomizer() { //made this it's own function because I intended to use it again in another game mode
