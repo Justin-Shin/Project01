@@ -53,7 +53,7 @@ body {
   height: 59vh;
   border-radius:70vh;
   border: black solid 12vh;
-  pointer-events:none;
+  pointer-events:auto;
 }
 .outerOuterCircle{
   position:absolute;
