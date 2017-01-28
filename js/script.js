@@ -47,6 +47,7 @@ function powerToggle() {
     $('.powerButton').css('justify-content','flex-end');
     $('.startButton').css('background','rgba(255,0,0,.5)');
     $('.score').css('color','rgba(255,255,255,.1)');//turns score board off
+    $('.outerCircle').css('pointer-events','auto');
   }
 }
 function runSequence(sequenceToUse) {
