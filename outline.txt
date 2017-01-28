@@ -19,3 +19,4 @@ cheat mode shows the sequence as it plays
 other modes
 - speeding up
 - random sequence every time
+- high score using cookies http://gamedev.stackexchange.com/questions/47958/saving-scores-using-cookies

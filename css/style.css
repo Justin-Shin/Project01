@@ -1,3 +1,4 @@
+
 body {
   display: flex;
   justify-content: center;
@@ -77,6 +78,7 @@ body {
   font-weight:bold;
   font-size: 5vh;
   padding-bottom:5vh;
+  user-select:none;
 }
 .powerControl {
   position: absolute;
@@ -88,6 +90,7 @@ body {
 }
 .textOn, .textOff {
   width:3vh;
+  user-select:none;
 }
 .textOn {
   position:relative;
@@ -107,9 +110,42 @@ body {
   width:5vh;
   background:red;
 }
-.top .left:active {
-  border-bottom-color: rgba(0,255,0,1);
+.startButton {
+  position:absolute;
+  color: black;
+  margin-top: 8.5vh;
+  padding:0;
+  padding-top:.25vh;
+  /*border:rgba(255,0,0,.5) solid .5vh;
+  border-radius:1vh;*/
+  font-family:'Syncopate', sans-serif;
+  font-size:2.5vh;
+  background:rgba(255,0,0,.5);
+  user-select:none;
+  box-shadow: 0 0 .5vh .5vh rgba(255,0,0,.5);
 }
+.scoreBox {
+  position:absolute;
+  /*height:4vh;
+  width:4vh;*/
+  /*background: orange;*/
+  margin-top:-9vh;
+  display:flex;
+  border:rgba(255,255,255,.1) solid .1vh;
+  justify-content: center;
+  align-items: flex-end;
+
+}
+.score {
+  position:relative;
+  top:.4vh;
+  font-family:'Segment7Standard';
+  color:rgba(255,255,255,.1);
+  font-size: 5vh;
+  user-select:none;
+
+}
+  /*border-bottom-color: rgba(0,255,0,1);*/
 .top .right:active {
 	border-bottom-color:red;
 }
@@ -188,5 +224,20 @@ body {
   .powerSwitch {
     width:5vw;
   }
+  .startButton {
+    margin-top: 8.5vw;
+    padding-top:.25vw;
+    font-size:2.5vw;
+    box-shadow: 0 0 .5vw .5vw rgba(255,0,0,.5);
+  }
+  .scoreBox {
+    margin-top:-9vw;
+    border:rgba(255,255,255,.1) solid .1vw;
 
+  }
+  .score {
+    top:.4vw;
+    font-size: 5vw;
+
+  }
 }
