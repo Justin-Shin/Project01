@@ -18,7 +18,8 @@ var simon = {
   speed: 100, //speed of delay between lights flashing
   sequenceCounter: 0,
   inputCounter: 0,
-  score: 0
+  score: 0,
+  playerTimer: null
 }
 $('.powerSwitch').on('click',powerToggle); //user hits the powerSwitch
 $('.startButton').on('click',playGame); //user hits play
@@ -33,9 +34,7 @@ function powerToggle() {
       return boxShadow;
     }}); //turns the start button "on"
     runSequence(simon.beginningSequence); //lights up the board in a sequence
-    // $('.score').css('color','red');//turns score board on
-  } else {
-    //code to power down simon goes here, reset the object to original values etc
+  } else {//code to power down simon goes here, reset the object to original values etc
     allLightsOff();
     simon.computerSequence = [];
     simon.speed = 100;
@@ -44,11 +43,7 @@ function powerToggle() {
     simon.sequenceCounter=0;
     simon.inputCounter = 0;
     $('.powerButton').css('justify-content','flex-end');
-    $('.startButton').css({'background':'rgba(255,0,0,.5)', 'box-shadow': function(){
-      var boxShadow = $('.startButton').css('box-shadow').replace(/rgba.*\)/,'rgba(255, 0, 0, 50%)')
-      console.log(boxShadow)
-      return boxShadow;
-    }});
+    $('.startButton').css('background','rgba(255,0,0,.5)');
     $('.score').css('color','rgba(255,255,255,.1)');//turns score board off
   }
 }
@@ -76,7 +71,14 @@ function runSequence(sequenceToUse) {
       allLightsOff(true,sequenceToUse);
     }
       ,simon.speed*3) //makes the last item of the sequence longer but only if its the beginning sequence
-  } else {
+  } else if (sequenceToUse[simon.sequenceCounter]===false){ //basically if this is the last of the sequence that is not a beginning or ending animation, I want a timer for a lose scenario to start
+    delayOff = setTimeout(function(){
+      allLightsOff(true,sequenceToUse);
+    }
+      ,simon.speed);
+    simon.playerTimer = setTimeout(loseScenario,3000); //you have three seconds to start after the sequence ends to begin
+  }
+  else {
     delayOff = setTimeout(function(){
       allLightsOff(true,sequenceToUse);
     }
@@ -102,44 +104,50 @@ function playGame() {
   simon.computerSequence.push(randomizer()); //attaching a random number 1-4 which maps to a button
   simon.computerSequence.push(false); //adding the false to denote the end of the sequence
   simon.speed = 500; //since I know this is gameplay, I'm setting the speed of the lights to half a second as opposed to a tenth of a second for the startup animation
-  console.log(simon.computerSequence)
   runSequence(simon.computerSequence);
 }
 function checkSequence() {
   if (simon.powerOn === false || simon.computerSequence.length==0) {
-    console.log('not on or no sequence')
     return false; //game isn't on OR does not have an active sequence to compare to, do nothing
   } else {
-    console.log($(this))
-    if (simon.computerSequence[simon.inputCounter] == (simon.colorMap.indexOf($(this).attr('id'))+1)){
-      console.log("apple cider input counter: " + simon.inputCounter)
+    clearTimeout(simon.playerTimer);
+    if (simon.computerSequence[simon.inputCounter] == (simon.colorMap.indexOf($(this).attr('id'))+1)){ //checks the computers sequence at the index that is equivalent to the users button push
       simon.inputCounter++
       simon.score = simon.inputCounter;
-      if (simon.inputCounter == simon.computerSequence.length-1) {
-        console.log("running next sequence, score:" + simon.inputCounter)
+      simon.playerTimer = setTimeout(loseScenario,2000); //user made the right click, they have two seconds for the next click
+      if (simon.inputCounter == simon.computerSequence.length-1) { //we've gone through the entire array and we know now that the user has gotten everything right
+        clearTimeout(simon.playerTimer); //if it's the end of the computer sequence, you dont want the lose scenario to go anyway (set rigth before), so you clear it
         updateScore();
         var delayRound = setTimeout(playGame,1000);
       }
-    } else {
-      //input code for losing
-      simon.speed = 100;
-      simon.score = 0;
-      simon.computerSequence = [];
-      var delayLoss = setTimeout(runSequence,500,simon.lossSequence);
-      var delayLoss2 = setTimeout(updateScore,5000);
+    } else {//input code for losing
+      loseScenario();
+      return false;
+      // simon.speed = 100;
+      // simon.score = 0;
+      // simon.computerSequence = [];
+      // var delayLoss = setTimeout(runSequence,500,simon.lossSequence);
+      // var delayLoss2 = setTimeout(updateScore,5000);
     }
+
   }
+}
+function loseScenario(){
+  simon.speed = 100;
+  simon.score = 0;
+  simon.computerSequence = [];
+  var delayLoss = setTimeout(runSequence,500,simon.lossSequence);
+  var delayLoss2 = setTimeout(updateScore,5000);
 }
 function updateScore(){
-  if (1 < simon.score.toString().length){
-    var scoreArray = simon.score.toString().split('');
-    $('.score10').html(scoreArray[0]);
-    $('.score01').html(scoreArray[1]);
-
+  if (1 < simon.score.toString().length){ //if the score has more than 1 digit (example: 15 has two digits, 1 and 5)
+    var scoreArray = simon.score.toString().split(''); //split it so it can populate the score field
+    $('.score10').html(scoreArray[0]); //first digit placed in the tens field
+    $('.score01').html(scoreArray[1]); //second digit placed in the ones field
   } else {
-    $('.score01').text(simon.score);
+    $('.score01').text(simon.score); //one digit score just updates the ones field
   }
 }
-function randomizer() {
+function randomizer() { //made this it's own function because I intended to use it again in another game mode
   return Math.floor((Math.random() * 4) + 1);
 }
