@@ -145,6 +145,18 @@ body {
   user-select:none;
 
 }
+.green.on {
+  border-bottom-color: rgba(0,255,0,1);
+}
+.red.on {
+	border-bottom-color:red;
+}
+.yellow.on {
+  border-top-color: yellow;
+}
+.blue.on {
+  border-top-color: blue;
+}
 .top .left:active{
   border-bottom-color: rgba(0,255,0,1);
 }

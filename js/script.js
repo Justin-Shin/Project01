@@ -9,12 +9,17 @@
 //to the computerSequence using a counter that ticks up every time the user
 //chooses a color and checks against the computer sequence array index
 var simon = {
-  beginningSequence: [1,2,3,4,1,2,3,4,13,24,13,24,1234,1234,false],
+  beginningSequence: [1,2,3,4,1,2,3,4,13,24,13,24,1234,1234,1234,false],
   computerSequence: [],
   inputSequence: [], //possibly extraneous
   lossSequence: [1234,1234,false],
-  powerOn: false //adding this to avoid using dom as a makeshift database
+  powerOn: false, //adding this to avoid using dom as a makeshift database
+  colorMap: ['.green','.red','.blue','.yellow'], //'map' of the buttons
+  speed: 200, //speed of delay between lights flashing
+  sequenceCounter: 0,
+  runningSequence: null
 }
+
 //user hits the powerSwitch
 $('.powerSwitch').on('click',powerToggle);
 
@@ -26,15 +31,46 @@ function powerToggle() {
       var boxShadow = $('.startButton').css('box-shadow').replace(/rgba.*\)/,'rgba(255,0,0,1)')
       return boxShadow;
     }}); //turns the start button "on"
-    runSequence(simon.beginningSequence); //lights up the board in a sequence
+    runSequence(simon.runningSequence = simon.beginningSequence); //lights up the board in a sequence
     $('.score').css('color','red');//turns score board on
   } else {
-
+    //code to power down simon goes here
   }
 }
-
 function runSequence(sequenceToUse) {
+  var sequenceArrayHolder;
   $('.outerCircle').css('pointer-events','auto'); //makes it so the user can't click items when this function runs
+  if (sequenceToUse[simon.sequenceCounter] === false) {
+    console.log('completed a sequence');
+    return true;
+  } else if (sequenceToUse[simon.sequenceCounter].toString().length==1) {
+      $(simon.colorMap[sequenceToUse[simon.sequenceCounter]-1]).addClass('on');
+      simon.sequenceCounter++;
+  } else if (1 < sequenceToUse[simon.sequenceCounter].toString().length) {
 
-  $('.outerCircle').css('pointer-events','auto'); //at end of function, reactivates ability to push buttons
+      sequenceArrayHolder = sequenceToUse[simon.sequenceCounter].toString().split('');
+      console.log(sequenceArrayHolder)
+      for (j=0; j < sequenceArrayHolder.length; j++) {
+        $(simon.colorMap[sequenceArrayHolder[j]-1]).addClass('on');
+      }
+      simon.sequenceCounter++
+  }
+  if (sequenceToUse[simon.sequenceCounter]===false) {
+    var delayOff = setTimeout(allLightsOff,simon.speed*2)
+  } else {
+    delayOff = setTimeout(allLightsOff,simon.speed);
+  }
+
+  $('.outerCircle').css('pointer-events','none'); //at end of function, reactivates ability to push buttons
+}
+
+function allLightsOff(checkForOff) {
+  console.log('hey who turnedout the lights')
+  $('.green').removeClass('on');
+  $('.red').removeClass('on');
+  $('.blue').removeClass('on');
+  $('.yellow').removeClass('on');
+  if (!checkForOff) {
+    var delayOff = setTimeout(runSequence,simon.speed+50,simon.runningSequence);
+  }
 }
