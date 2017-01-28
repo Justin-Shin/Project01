@@ -147,16 +147,16 @@ body {
   user-select:none;
 
 }
-.green.on {
+#green.on {
   border-bottom-color: rgba(0,255,0,1);
 }
-.red.on {
+#red.on {
 	border-bottom-color:red;
 }
-.yellow.on {
+#yellow.on {
   border-top-color: yellow;
 }
-.blue.on {
+#blue.on {
   border-top-color: blue;
 }
 .top .left:active{
