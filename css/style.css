@@ -3,6 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   height:100vh;
+  background: black;
 }
 #simon {
   display: flex;
@@ -19,22 +20,74 @@ body {
   margin: 1vh;
 }
 .top .left {
-	border-bottom: 30vh solid blue;
-	border-left: 30vh solid transparent;
-  box-shadow: 1.5vh 1.5vh 1vh -1vh #ccc;
+	border-bottom: 40vh solid rgba(0,255,0,.5);
+	border-left: 40vh solid transparent;
+  /*box-shadow: 1vh 1vh 2vh -.5vh #ccc;*/
 }
 .top .right {
-	border-bottom: 30vh solid red;
-	border-right: 30vh solid transparent;
-  box-shadow: -1.5vh 1.5vh 1vh -1vh #ccc;
+	border-bottom: 40vh solid rgba(255,0,0,.5);
+	border-right: 40vh solid transparent;
+  /*box-shadow: -1vh 1vh 2vh -.5vh #ccc;*/
 }
 .bottom .left {
-  border-top: 30vh solid green;
-  border-left: 30vh solid transparent;
-  box-shadow: 1.5vh -1.5vh 1vh -1vh #ccc;
+  border-top: 40vh solid rgba(255,255,0,.5);
+  border-left: 40vh solid transparent;
+  /*box-shadow: 1vh -1vh 2vh -.5vh #ccc;*/
 }
 .bottom .right {
-  border-top: 30vh solid yellow;
-  border-right: 30vh solid transparent;
-  box-shadow: -1.5vh -1.5vh 1vh -1vh #ccc;
+  border-top: 40vh solid rgba(0,0,255,.5);
+  border-right: 40vh solid transparent;
+  /*box-shadow: -1vh -1vh 2vh -.5vh #ccc;*/
+}
+.innerCircle{
+  position:absolute;
+  border: black solid 15vh;
+  border-radius:30vh;
+
+}
+.outerCircle{
+  position:absolute;
+  width: 59vh;
+  height: 59vh;
+  border-radius:70vh;
+  border: black solid 12vh;
+  pointer-events:none;
+}
+.outerOuterCircle{
+  position:absolute;
+  width: 82.9vh;
+  height:82.9vh;
+  border: rgba(255,255,255,.5) solid .1vh;
+  border-radius:60vh;
+  pointer-events:none;
+}
+.backgroundCircle {
+  position:absolute;
+  width:0;
+  height:0;
+  border: black solid 35.5vh;
+  border-radius:71vh;
+  z-index:-1;
+}
+.label {
+  position:absolute;
+  color:white;
+  font-family:sans-serif;
+  font-weight:bold;
+  font-size: 5vh;
+  padding-bottom:5vh;
+}
+
+.top .left:active {
+  border-bottom-color: rgba(0,255,0,1);
+}
+
+.top .right:active {
+	border-bottom-color:red;
+}
+.bottom .left:active {
+  border-top-color: yellow;
+}
+.bottom .right:active {
+  border-top-color: blue;
 }
