@@ -1,0 +1,21 @@
+Simon
+Create Webpage (HTML/CSS)
+  - For regular browser, no scrolling, resizes with window
+  - Options lower right corner, no padding or border, simple design
+  - For mobile create hamburger (barf) nav/options
+
+Create Game Logic (JavaScript)
+  - Generate
+
+
+
+When the power SWITCH is clicked, it toggles the powerbutton to become justify-content flex-start
+Opening on sequence
+flashes 0s
+
+
+other options
+cheat mode shows the sequence as it plays
+other modes
+- speeding up
+- random sequence every time

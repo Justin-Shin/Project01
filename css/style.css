@@ -3,6 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   height:100vh;
+  width:100vw;
   background: black;
 }
 #simon {
@@ -72,16 +73,43 @@ body {
 .label {
   position:absolute;
   color:white;
-  font-family:sans-serif;
+  font-family:'Syncopate',sans-serif;
   font-weight:bold;
   font-size: 5vh;
   padding-bottom:5vh;
 }
-
+.powerControl {
+  position: absolute;
+  display: flex;
+  margin-top:3vh;
+  color: white;
+  font-family:'Syncopate',sans-serif;
+  font-size:2vh;
+}
+.textOn, .textOff {
+  width:3vh;
+}
+.textOn {
+  position:relative;
+  right:1vh;
+}
+.powerButton {
+  width:10vh;
+  background:gray;
+  margin-right:1vh;
+  margin-left:1vh;
+  display:flex;
+  justify-content:flex-end;
+}
+.powerSwitch {
+  margin:0;
+  padding:0;
+  width:5vh;
+  background:red;
+}
 .top .left:active {
   border-bottom-color: rgba(0,255,0,1);
 }
-
 .top .right:active {
 	border-bottom-color:red;
 }
@@ -90,4 +118,75 @@ body {
 }
 .bottom .right:active {
   border-top-color: blue;
+}
+
+
+@media screen and (orientation:portrait) {
+  .top .left, .top .right, .bottom .left, .bottom .right {
+    margin: 1vw;
+  }
+  .top .left {
+  	border-bottom: 40vw solid rgba(0,255,0,.5);
+  	border-left: 40vw solid transparent;
+    /*box-shadow: 1vh 1vh 2vh -.5vh #ccc;*/
+  }
+  .top .right {
+  	border-bottom: 40vw solid rgba(255,0,0,.5);
+  	border-right: 40vw solid transparent;
+    /*box-shadow: -1vh 1vh 2vh -.5vh #ccc;*/
+  }
+  .bottom .left {
+    border-top: 40vw solid rgba(255,255,0,.5);
+    border-left: 40vw solid transparent;
+    /*box-shadow: 1vh -1vh 2vh -.5vh #ccc;*/
+  }
+  .bottom .right {
+    border-top: 40vw solid rgba(0,0,255,.5);
+    border-right: 40vw solid transparent;
+    /*box-shadow: -1vh -1vh 2vh -.5vh #ccc;*/
+  }
+  .innerCircle{
+    border: black solid 15vw;
+    border-radius:30vw;
+  }
+  .outerCircle{
+    position:absolute;
+    width: 59vw;
+    height: 59vw;
+    border-radius:70vw;
+    border: black solid 12vw;
+  }
+  .outerOuterCircle{
+    width: 82.9vw;
+    height:82.9vw;
+    border: rgba(255,255,255,.5) solid .1vw;
+    border-radius:60vh;
+  }
+  .backgroundCircle {
+    border: black solid 35.5vw;
+    border-radius:71vw;
+  }
+  .label {
+    font-size: 5vw;
+    padding-bottom:5vw;
+  }
+  .powerControl {
+    margin-top:3vw;
+    font-size:2vw;
+  }
+  .textOn, .textOff {
+    width:3vw;
+  }
+  .textOn {
+    right:1vw;
+  }
+  .powerButton {
+    width:10vw;
+    margin-right:1vw;
+    margin-left:1vw;
+  }
+  .powerSwitch {
+    width:5vw;
+  }
+
 }
