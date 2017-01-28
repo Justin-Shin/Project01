@@ -22,8 +22,10 @@ var simon = {
   playerTimer: null
 }
 $('.powerSwitch').on('click',powerToggle); //user hits the powerSwitch
-$('.startButton').on('click',playGame); //user hits play
-$('.button').on('click',checkSequence) //user clicks a button
+$('.startButton').on('click',function(){
+  if (simon.computerSequence.length==0) {playGame()}
+}); //user hits play
+$('.button').on('click',checkSequence); //user clicks a button
 
 function powerToggle() {
   if(simon.powerOn===false) {//if true, this means simon is off
