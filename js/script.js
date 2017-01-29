@@ -150,6 +150,7 @@ function updateScore(){
     $('.score10').html(scoreArray[0]); //first digit placed in the tens field
     $('.score01').html(scoreArray[1]); //second digit placed in the ones field
   } else {
+    $('.score10').text('0');
     $('.score01').text(simon.score); //one digit score just updates the ones field
   }
 }
