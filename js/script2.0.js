@@ -42,6 +42,9 @@ var simon = {
     })
   },
   runSequence: function(){
+  },
+  allLightsOff: function(){
 
   },
+
 }
