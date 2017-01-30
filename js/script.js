@@ -15,7 +15,7 @@ var simon = {
   lossSequence: [1234,1234,1234,1,4,3,2,1,14,143,1432,1234,false],
   powerOn: false, //adding this to avoid using dom as a makeshift database
   colorMap: ['green','red','blue','yellow'], //'map' of the buttons
-  speed: 100, //speed of delay between lights flashing
+  speed: 50, //speed of delay between lights flashing
   sequenceCounter: 0,
   inputCounter: 0,
   score: 0,
@@ -31,15 +31,12 @@ function powerToggle() {
   if(simon.powerOn===false) {//if true, this means simon is off
     $('.powerButton').css('justify-content','flex-start'); //moves switch to on position
     simon.powerOn = true; //sets keypair to true for future toggle
-    $('.startButton').css({'background':'rgba(255,0,0,1)', 'box-shadow':function(){
-      var boxShadow = $('.startButton').css('box-shadow').replace(/rgba.*\)/,'rgba(255,0,0,1)')
-      return boxShadow;
-    }}); //turns the start button "on"
+    $('.startButton').css('background','rgba(255,0,0,1)'); //turns the start button "on"
     runSequence(simon.beginningSequence); //lights up the board in a sequence
   } else {//code to power down simon goes here, reset the object to original values etc
     allLightsOff();
     simon.computerSequence = [];
-    simon.speed = 100;
+    simon.speed = 50;
     simon.powerOn = false;
     simon.score = 0;
     simon.sequenceCounter=0;
@@ -138,7 +135,7 @@ function checkSequence() {
   }
 }
 function loseScenario(){
-  simon.speed = 100;
+  simon.speed = 50;
   simon.score = 0;
   simon.computerSequence = [];
   var delayLoss = setTimeout(runSequence,500,simon.lossSequence);
