@@ -1,9 +1,5 @@
 
 body {
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;     /* NEW - Chrome */
   display:flex;
   justify-content: center;
   align-items: center;
@@ -12,19 +8,11 @@ body {
   background: black;
 }
 #simon {
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;     /* NEW - Chrome */
   display:flex;
   flex-direction: column;
 }
 
 .top, .bottom {
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;     /* NEW - Chrome */
   display:flex;
 }
 
@@ -113,10 +101,6 @@ body {
   background:gray;
   margin-right:1vh;
   margin-left:1vh;
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;     /* NEW - Chrome */
   display:flex;
   justify-content:flex-end;
 }
@@ -148,10 +132,6 @@ body {
   width:4vh;*/
   /*background: orange;*/
   margin-top:-9vh;
-  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-  display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex;     /* NEW - Chrome */
   display:flex;
   border:rgba(255,255,255,.1) solid .1vh;
   justify-content: center;
