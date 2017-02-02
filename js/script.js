@@ -20,10 +20,12 @@ var simon = {
   inputCounter: 0,
   score: 0,
   playerTimer: null
-}
+};
 $('.powerSwitch').on('click',powerToggle); //user hits the powerSwitch
 $('.startButton').on('click',function(){
-  if (simon.computerSequence.length==0) {playGame()}
+  if (simon.computerSequence.length === 0) {
+    playGame();
+  }
 }); //user hits play
 $('.button').on('click',checkSequence); //user clicks a button
 
@@ -65,25 +67,22 @@ function runSequence(sequenceToUse) {
       for (j=0; j < sequenceArrayHolder.length; j++) {
         $('#'+simon.colorMap[sequenceArrayHolder[j]-1]).addClass('on');
       }
-      simon.sequenceCounter++
+      simon.sequenceCounter++;
   }
   if (sequenceToUse[simon.sequenceCounter]===false && (sequenceToUse == simon.beginningSequence || sequenceToUse ==simon.lossSequence)) {
     var delayOff = setTimeout(function(){ //i want the ending light up to be longer if it's the turning on sequence
       allLightsOff(true,sequenceToUse);
-    }
-      ,simon.speed*3) //makes the last item of the sequence longer but only if its the beginning sequence
+    } ,simon.speed*3); //makes the last item of the sequence longer but only if its the beginning sequence
   } else if (sequenceToUse[simon.sequenceCounter]===false){ //basically if this is the last of the sequence that is not a beginning or ending animation, I want a timer for a lose scenario to start
-    delayOff = setTimeout(function(){
+    delayOff = setTimeout(function(){//delayOff is out of scope
       allLightsOff(true,sequenceToUse);
-    }
-      ,simon.speed);
+    } ,simon.speed);
     simon.playerTimer = setTimeout(loseScenario,3000); //you have three seconds to start after the sequence ends to begin
   }
   else {
-    delayOff = setTimeout(function(){
+    delayOff = setTimeout(function(){//delayOff is out of scope
       allLightsOff(true,sequenceToUse);
-    }
-      ,simon.speed);
+    } ,simon.speed);
   }
 }
 function allLightsOff(checkForOff,whichSequence) { //turns off any lights that are on (unless active, aka user is actively clicking)
@@ -109,12 +108,12 @@ function playGame() {
 }
 function checkSequence() {
   beepBeep($(this).attr('id'),true); //feeds the color name to the sound function to let it know which file to use
-  if (simon.powerOn === false || simon.computerSequence.length==0) {
+  if (simon.powerOn === false || simon.computerSequence.length === 0) {
     return false; //game isn't on OR does not have an active sequence to compare to, do nothing
   } else {
     clearTimeout(simon.playerTimer);
     if (simon.computerSequence[simon.inputCounter] == (simon.colorMap.indexOf($(this).attr('id'))+1)){ //checks the computers sequence at the index that is equivalent to the users button push
-      simon.inputCounter++
+      simon.inputCounter++;
       simon.score = simon.inputCounter;
       simon.playerTimer = setTimeout(loseScenario,2000); //user made the right click, they have two seconds for the next click
       if (simon.inputCounter == simon.computerSequence.length-1) { //we've gone through the entire array and we know now that the user has gotten everything right
@@ -140,7 +139,7 @@ function loseScenario(){
   simon.computerSequence = [];
   var delayLoss = setTimeout(runSequence,500,simon.lossSequence);
   var delayLoss2 = setTimeout(updateScore,5000);
-}
+} //I would try doing an if else statement to reset the score quicker if they press the start button before the score resets on its own
 function updateScore(){
   if (1 < simon.score.toString().length){ //if the score has more than 1 digit (example: 15 has two digits, 1 and 5)
     var scoreArray = simon.score.toString().split(''); //split it so it can populate the score field
@@ -152,7 +151,7 @@ function updateScore(){
   }
 }
 function beepBeep(colorSound,playGame){
-  if (playGame == true) {
+  if (playGame) { //Just put in the variable if you variable is already true
     var beep = $('<audio autoplay></audio>');
     beep.append('<source src="sounds/' + colorSound + '.mp3" type="audio/mp3" />');
     $('[data-action=sound]').html(beep);
