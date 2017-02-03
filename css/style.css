@@ -216,7 +216,7 @@ body {
   border-top-color: blue;
 }
 
-
+/* nice formatting for responsive design */
 @media screen and (orientation:portrait) {
   .top .left, .top .right, .bottom .left, .bottom .right {
     margin: 1vw;

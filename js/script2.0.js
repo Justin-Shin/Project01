@@ -1,3 +1,5 @@
+//I would put this on a different branch rather in the same repo. This is one of the purposes of version control
+
 var simon = {
   powerOn: false,
   colorMap: {
