@@ -1,3 +1,9 @@
+/// James' comments in 3x slashes
+/// Overall feedback: your project is extremely well thought out. Your problem
+/// modeling skills appear to be quite strong. Admirable! My feedback is therefore
+/// focussed on stylistic aspects of your code though i've included suggestions for
+/// paring down your program and simplifying your design.
+
 //This is an object that will contain all possible sequences.  At the moment
 //there are four sequences- sequence at startup, sequence for the computer,
 //sequence the user inputs (these two have values pushed as the game is played
@@ -10,9 +16,9 @@
 //chooses a color and checks against the computer sequence array index
 var simon = {
   beginningSequence: [1,2,3,4,13,24,1,12,123,1234,1234,1234,1234,false],
+  lossSequence: [1234,1234,1234,1,4,3,2,1,14,143,1432,1234,false],
   computerSequence: [],
   inputSequence: [], //possibly extraneous
-  lossSequence: [1234,1234,1234,1,4,3,2,1,14,143,1432,1234,false],
   powerOn: false, //adding this to avoid using dom as a makeshift database
   colorMap: ['green','red','blue','yellow'], //'map' of the buttons
   speed: 50, //speed of delay between lights flashing
@@ -36,29 +42,55 @@ function powerToggle() {
   } else {//code to power down simon goes here, reset the object to original values etc
     allLightsOff();
     simon.computerSequence = [];
+
+    /// You've already defined this above. also CONSTANTS by convention are
+    /// ALL_CAPS_AND_SNAKE_CASED, even if they are object properties
     simon.speed = 50;
     simon.powerOn = false;
     simon.score = 0;
-    simon.sequenceCounter=0;
+
+    /// I like that you thought to include the round-counter as part of how you modeled this object/machine
+    /// my feedback here is that if you have two correspondent arrays, where each index in each array corresponds,
+    /// meaning matching indices/indexes contain related information, you don't strictly need the counter but!
+    /// it models the machine well. but maybe it could be considered extraneous. just food for thought.
+    simon.sequenceCounter = 0;
     simon.inputCounter = 0;
+
+    ///not sure if below line is doing anything
     $('.powerButton').css('justify-content','flex-end');
+    ///nice uses of alhpa/opacity
     $('.startButton').css('background','rgba(255,0,0,.5)');
     $('.score').css('color','rgba(255,255,255,.1)');//turns score board off
     $('.outerCircle').css('pointer-events','auto');
   }
 }
+
 function runSequence(sequenceToUse) {
+  ///I think sequenceArrayHolder isn't strictly necessary. really I think all you need is one looping structure that loops over player choices and the randomize sequence, checking for a match
+
   var sequenceArrayHolder;
   $('.outerCircle').css('pointer-events','auto'); //makes it so the user can't click items when this function runs
+
+
+  ///I think you don't even need false at the end of these arrays here. if you're passing in an index outside the array, the reference to the non-existant array item will return undefined, and therefore be falsey
+  ///however, your meticulous and lucid commenting and problem modeling are very commendable!!
+
+
+  ///I would break out all the animation code in these conditional blocks into dedicated animation functions
+  ///The code below is a little difficult to read/visually parse
+
   if (sequenceToUse[simon.sequenceCounter] === false) { //checks to see if it's at the last item in the sequence.  This is important because I wanted there to be a distinct end ot the function instead of having it taper off
+
     $('.outerCircle').css('pointer-events','none'); //at end of function, reactivates ability to push buttons
     $('.score').css('color','red');//turns score board on
     simon.sequenceCounter = 0;
     simon.inputCounter = 0;
     return null; //ends function
+
+
   } else if (sequenceToUse[simon.sequenceCounter].toString().length==1) { //checks how many digits are in the index of the array of the sequence
       $('#'+simon.colorMap[sequenceToUse[simon.sequenceCounter]-1]).addClass('on');
-      beepBeep(simon.colorMap[sequenceToUse[simon.sequenceCounter]-1],!(sequenceToUse == simon.beginningSequence || sequenceToUse ==simon.lossSequence));
+      beepBeep(simon.colorMap[sequenceToUse[simon.sequenceCounter]-1],!(sequenceToUse == simon.beginningSequence || sequenceToUse == simon.lossSequence));
       simon.sequenceCounter++; //these are used instead of a for loop because setTimer will set a timer but the loops will keep running (so there will just be many multiple timers at the same time and then the waiting function will run all after another)
   } else if (1 < sequenceToUse[simon.sequenceCounter].toString().length) { //if the value in the index has a two digit number or more, it will run this to light multiple lights at once for effect
       sequenceArrayHolder = sequenceToUse[simon.sequenceCounter].toString().split('');
@@ -104,10 +136,15 @@ function playGame() {
   }
   simon.computerSequence.push(randomizer()); //attaching a random number 1-4 which maps to a button
   simon.computerSequence.push(false); //adding the false to denote the end of the sequence
+
+  ///you could also have a separate speed constant for startup/powerdown animations
+  ///the virute of this is that you could keep all your simon.CONSTANTS in one place in your source
   simon.speed = 500; //since I know this is gameplay, I'm setting the speed of the lights to half a second as opposed to a tenth of a second for the startup animation
+
   runSequence(simon.computerSequence);
 }
 function checkSequence() {
+  ///nice; i like that you broke out the sound-behavior into a separate function
   beepBeep($(this).attr('id'),true); //feeds the color name to the sound function to let it know which file to use
   if (simon.powerOn === false || simon.computerSequence.length==0) {
     return false; //game isn't on OR does not have an active sequence to compare to, do nothing
